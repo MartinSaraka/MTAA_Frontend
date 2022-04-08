@@ -55,12 +55,12 @@ const LoginPage = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        
+
         setLoading(false);
         console.log(responseJson);
         // If server response message same as Data Matched
         if (responseJson.status === 'success') {
-          
+
           console.log(responseJson.data.email);
           navigation.replace('DrawerNavigationRoutes');
         } else {
@@ -78,8 +78,8 @@ const LoginPage = ({navigation}) => {
   return (
     <View style={styles.mainBody}>
       <ImageBackground
-          
-          source={require("../assets/images/LoginPhoto.png")}
+
+          source={require("../assets/images/loginPhoto.png")}
           resizeMode="cover"
           style={styles.image2}
           imageStyle={styles.image2_imageStyle}
@@ -94,7 +94,7 @@ const LoginPage = ({navigation}) => {
         <View>
           <KeyboardAvoidingView enabled>
             <View style={{alignItems: 'center'}}>
-              
+
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
@@ -161,7 +161,7 @@ export default LoginPage;
 const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
-    
+
   },
   SectionStyle: {
     flexDirection: 'row',
