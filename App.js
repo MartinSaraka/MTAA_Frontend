@@ -30,7 +30,7 @@ const App = () => {
         >
             <Stack.Screen name="LandingPage" component={LandingPage} />
 
-            <Stack.Screen name="LoginPage" component={LoginPage}  initialParams={{ itemId: 60 }} />
+            <Stack.Screen name="LoginPage" component={LoginPage}   />
             <Stack.Screen name="RegisterPage" component={RegisterPage} />
             <Stack.Screen
                 name="DrawerNavigationPage"

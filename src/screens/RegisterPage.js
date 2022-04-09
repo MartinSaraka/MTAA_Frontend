@@ -1,5 +1,5 @@
 
-import React, {useState, createRef} from 'react';
+import React, { useState, createRef } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -15,7 +15,7 @@ import {
 
 
 
-  const RegisterPage = ({route,navigation}) =>  {
+const RegisterPage = ({  navigation }) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -24,9 +24,7 @@ import {
     isRegistraionSuccess,
     setIsRegistraionSuccess
   ] = useState(false);
-  const { userId } = route.params;
-  const { userToken } = route.params;
-  console.log(route)
+ 
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
 
@@ -45,7 +43,7 @@ import {
       return;
     }
 
-   
+
     var dataToSend = {
       name: userName,
       email: userEmail,
@@ -59,73 +57,83 @@ import {
     }
     formBody = formBody.join('&');
 
-    fetch('http://localhost:3000/api/user/register', {
+    fetch('http://127.0.0.1:8000/users/register', {
       method: 'POST',
-      body: formBody,
       headers: {
-        //Header Defination
-        'Content-Type':
-        'application/x-www-form-urlencoded;charset=UTF-8',
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
+      body: JSON.stringify({
+        name: userName,
+        email: userEmail,
+        password: userPassword
         
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status === 'success') {
-          setIsRegistraionSuccess(true);
-          console.log(
-            'Úspešná registrácia. Prihláste sa prosím'
-          );
-        } else {
-          setErrortext(responseJson.msg);
-        }
       })
-      .catch((error) => {
+    }).then(async response => {
+      const data = await response.status;
+      console.log(data)
+
+      // check for error response
+      if (!response.ok) {
+        console.error('bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+        console.log('Skontrulujte si svoje meno a heslo')
+        alert('Nesprávny vstup');
         
-        console.error(error);
-      });
-  };
-  if (isRegistraionSuccess) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#307ecc',
-          justifyContent: 'center',
-        }}>
-        
-        <Text style={styles.successTextStyle}>
-          Úspešná registrácua
-        </Text>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          activeOpacity={0.5}
-          onPress={() => props.navigation.navigate('LoginScreen')}>
-          <Text style={styles.buttonTextStyle}>Login Now</Text>
-        </TouchableOpacity>
-      </View>
-    );
+        const error = (data && data.message) || response.status;
+        return Promise.reject(error);
+      }
+      else {
+        setIsRegistraionSuccess(true);
+        alert("Zaregistrovaný")
+        navigation.replace('LoginPage');
+      }
+    })
+      .catch(error => {
+        console.log(error)
+        console.error('halo je tu error!');
+
+      })
   }
+
+if (isRegistraionSuccess) {
   return (
-    <View style={{flex: 1}}>
-      <ImageBackground
-          
-          source={require("../assets/images/registerPhoto.png")}
-          resizeMode="cover"
-          style={styles.image2}
-          imageStyle={styles.image2_imageStyle}
-        >
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#307ecc',
+        justifyContent: 'center',
+      }}>
+
+      <Text style={styles.successTextStyle}>
+        Úspešná registrácua
+      </Text>
+      <TouchableOpacity
+        style={styles.buttonStyle}
+        activeOpacity={0.5}
+        onPress={() => props.navigation.navigate('LoginPage')}>
+        <Text style={styles.buttonTextStyle}>Login Now</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+return (
+  <View style={{ flex: 1 }}>
+    <ImageBackground
+
+      source={require("../assets/images/registerPhoto.png")}
+      resizeMode="cover"
+      style={styles.image2}
+      imageStyle={styles.image2_imageStyle}
+    >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
-          flex:1,
+          flex: 1,
           justifyContent: 'center',
           alignContent: 'center',
         }}>
-        <View style={{alignItems: 'center'}}>
-          
+        <View style={{ alignItems: 'center' }}>
+
         </View>
         <KeyboardAvoidingView enabled>
           <View style={styles.SectionStyle}>
@@ -176,7 +184,7 @@ import {
               blurOnSubmit={false}
             />
           </View>
-          
+
           {errortext != '' ? (
             <Text style={styles.errorTextStyle}>
               {errortext}
@@ -185,15 +193,21 @@ import {
           <TouchableOpacity
             style={styles.buttonStyle}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('DrawerNavigationPage')}
-            >
+            onPress={handleSubmitButton}
+          >
             <Text style={styles.buttonTextStyle}>Zaregistruj sa</Text>
           </TouchableOpacity>
+
+          <Text
+              style={styles.registerTextStyle}
+              onPress={() => navigation.navigate('LoginPage')}>
+              Už máš účet? prihlás sa
+            </Text>
         </KeyboardAvoidingView>
       </ScrollView>
-      </ImageBackground>
-    </View>
-  );
+    </ImageBackground>
+  </View>
+);
 };
 export default RegisterPage;
 
@@ -205,6 +219,14 @@ const styles = StyleSheet.create({
     marginLeft: 35,
     marginRight: 35,
     margin: 10,
+  },
+  registerTextStyle: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 14,
+    alignSelf: 'center',
+    padding: 10,
   },
   buttonStyle: {
     backgroundColor: '#7DE24E',

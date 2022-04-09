@@ -24,7 +24,7 @@ const LoginPage = ({navigation,route}) => {
   console.log(route)
   console.log(route)
   console.log(route)
-  
+
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -161,7 +161,8 @@ const LoginPage = ({navigation,route}) => {
               activeOpacity={0.5}
               onPress={handleSubmitPress}
               >
-              <Text style={styles.buttonTextStyle}>Prihlásiť sa</Text>
+              <Text 
+              style={styles.buttonTextStyle}>Prihlásiť sa</Text>
             </TouchableOpacity>
             <Text
               style={styles.registerTextStyle}

@@ -42,7 +42,7 @@ const AdminTrainingPage = ({navigation}) => {
                         style={styles.materialButtonHamburger}
                         activeOpacity={0.5}
                         onPress={() =>  navigation.replace('LandingPage')}>
-                        ></Button>
+                        </Button>
                     <View style={styles.image3Row}>
                         <Image
                             source={require("../assets/images/image_uZOV..png")}

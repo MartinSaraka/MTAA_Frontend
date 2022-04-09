@@ -29,9 +29,13 @@ const LandingPage = ({navigation}) => {
               <Text
               style={styles.buttonTextStyle}>Prihlásiť sa</Text>
           </TouchableOpacity>
-          <RegisterText ></RegisterText>
+        
 
+          <TouchableOpacity style={[styles.container2]}
+          onPress={() => navigation.navigate('RegisterPage')}>
 
+      <Text style={styles.button2}>Nemáš ešte účet ?</Text>
+    </TouchableOpacity>
 
         </ImageBackground>
 
@@ -46,6 +50,24 @@ const LandingPage = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  container2: {
+    backgroundColor: "#5856D6",
+    justifyContent: "center",
+    alignItems: "center",  
+    flexDirection: "row",
+    borderRadius: 5,
+    fontFamily: "roboto-regular",
+    color: "#fff",
+    height: 29,
+    width: 160,
+    marginTop: 12,
+    marginLeft: 302,
+    
+  },
+  button2: {
+    color: "#fff",
+    fontSize: 11
   },
   container1: {
     backgroundColor: "#5856D6",
