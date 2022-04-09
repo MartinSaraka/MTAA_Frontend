@@ -65,7 +65,7 @@ const LoginPage = ({navigation}) => {
           navigation.replace('DrawerNavigationRoutes');
         } else {
           setErrortext(responseJson.msg);
-          console.log('Please check your email id or password');
+          console.log('Skontrolujte si svoj E-mail a heslo');
         }
       })
       .catch((error) => {
