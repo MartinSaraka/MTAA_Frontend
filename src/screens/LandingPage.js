@@ -5,40 +5,40 @@ import RegisterText from "../components/RegisterText";
 const LandingPage = ({navigation}) => {
   return (
     <View style={styles.container}>
-      
+
       <View style={styles.imageStack}>
         <Image
           source={require("../assets/images/image_Imh0..png")}
           resizeMode="contain"
           style={styles.image}
         ></Image>
-        
+
         <ImageBackground
           source={require("../assets/images/image_ix80..png")}
           resizeMode="contain"
           style={styles.image2}
           imageStyle={styles.image2_imageStyle}
         >
-          
+
           <TouchableOpacity
               style={styles.container1}
               activeOpacity={0.5}
-              onPress={() =>  navigation.replace('LoginPage')} 
+              onPress={() =>  navigation.replace('LoginPage')}
               /*onPress={handleSubmitPress}*/
               >
-              <Text 
+              <Text
               style={styles.buttonTextStyle}>Prihlásiť sa</Text>
-          </TouchableOpacity> 
+          </TouchableOpacity>
           <RegisterText ></RegisterText>
 
-         
-          
+
+
         </ImageBackground>
-        
-        
-        
+
+
+
       </View>
-      
+
     </View>
   );
 }
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     height: 812,
     width: 775
   },
-  
+
   image2_imageStyle: {},
   cupertinoButtonPurple: {
     height: 74,
@@ -120,6 +120,10 @@ const styles = StyleSheet.create({
     width: 775,
     height: 812,
     marginLeft: -193
+  },
+  upravit: {
+    color: "#000",
+    fontSize: 17
   }
 });
 

@@ -6,7 +6,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import 'react-native-gesture-handler';
 import LandingPage from './src/screens/LandingPage';
 import LoginPage from './src/screens/LoginPage';
+<<<<<<< HEAD
 import RegisterPage from './src/screens/RegisterPage';
+=======
+import ContactPage from './src/screens/ContactPage';
+import CoachPage from './src/screens/CoachPage';
+import PricingPage from './src/screens/PricingPage';
+import AdminTrainingPage from './src/screens/AdminTrainingPage';
+import TrainingsPage from './src/screens/TrainingsPage';
+import ChangeTrainingPage from './src/screens/ChangeTrainingPage';
+import AddTrainingPage from './src/screens/AddTrainingPage';
+>>>>>>> 619b1366ddce6e56ea32886f79c688a80d96a492
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -16,26 +26,32 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={"LandingPage"}
+        initialRouteName={"AdminTrainingPage"}
       >
         <Stack.Screen name="LandingPage" component={LandingPage} />
-        
-        
+
 
         <Stack.Screen name="LoginPage" component={LoginPage} />
         <Stack.Screen name="RegisterPage" component={RegisterPage} />
 
+          <Stack.Screen name="CoachPage" component={CoachPage} />
+          <Stack.Screen name="PricingPage" component={PricingPage} />
+          <Stack.Screen name="AdminTrainingPage" component={AdminTrainingPage} />
+          <Stack.Screen name="TrainingsPage" component={TrainingsPage} />
+          <Stack.Screen name="ContactPage" component={ContactPage} />
+          <Stack.Screen name="ChangeTrainingPage" component={ChangeTrainingPage} />
+        <Stack.Screen name="AddTrainingPage" component={AddTrainingPage} />
       </Stack.Navigator>
-      
-        
-        
-        
 
 
 
-      
-      
-      
+
+
+
+
+
+
+
     </NavigationContainer>
   )
 }
