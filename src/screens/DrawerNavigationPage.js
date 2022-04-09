@@ -25,6 +25,7 @@ const CoachPageStack = ({navigation}) => {
     <Stack.Navigator initialRouteName="CoachPage">
       <Stack.Screen
         name="CoachPage"
+        initialParams={{ itemId: userId ,userToken:userToken  }}
         component={CoachPage}
         options={{
           title: 'O nás', 
@@ -48,6 +49,7 @@ const ContactPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
       initialRouteName="ContactPage"
+      initialParams={{ itemId: userId ,userToken:userToken  }}
       screenOptions={{
         headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
@@ -61,10 +63,12 @@ const ContactPageStack = ({navigation}) => {
         },
       }}>
       <Stack.Screen
+       initialParams={{ itemId: userId ,userToken:userToken  }}
         name="ContactPage"
         component={ContactPage}
+       
         options={{
-          title: 'Kontakt', 
+          title: 'Kontakt'
         }}
       />
     </Stack.Navigator>
@@ -74,6 +78,7 @@ const PricingPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
       initialRouteName="PricingPage"
+      initialParams={{ itemId: userId ,userToken:userToken  }}
       screenOptions={{
         headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
@@ -87,6 +92,7 @@ const PricingPageStack = ({navigation}) => {
         },
       }}>
       <Stack.Screen
+         initialParams={{ itemId: userId ,userToken:userToken  }}
         name="PricingPage"
         component={PricingPage}
         options={{
@@ -99,6 +105,7 @@ const PricingPageStack = ({navigation}) => {
 const AdminTrainingPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
+    initialParams={{ itemId: userId ,userToken:userToken  }}
       initialRouteName="AdminTrainingPage"
       screenOptions={{
         headerLeft: () => (
@@ -113,6 +120,7 @@ const AdminTrainingPageStack = ({navigation}) => {
         },
       }}>
       <Stack.Screen
+         initialParams={{ itemId: userId ,userToken:userToken  }}
         name="AdminTrainingPage"
         component={AdminTrainingPage}
         options={{
@@ -125,6 +133,7 @@ const AdminTrainingPageStack = ({navigation}) => {
 const TrainingsPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
+    initialParams={{ itemId: userId ,userToken:userToken  }}
       initialRouteName="TrainingsPage"
       screenOptions={{
         headerLeft: () => (
@@ -139,6 +148,7 @@ const TrainingsPageStack = ({navigation}) => {
         },
       }}>
       <Stack.Screen
+         initialParams={{ itemId: userId ,userToken:userToken  }}
         name="TrainingsPage"
         component={TrainingsPage}
         options={{
@@ -152,6 +162,7 @@ const ChangeTrainingPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
       initialRouteName="ChangeTrainingPage"
+      initialParams={{ itemId: userId ,userToken:userToken  }}
       screenOptions={{
         headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
@@ -166,6 +177,7 @@ const ChangeTrainingPageStack = ({navigation}) => {
       }}>
       <Stack.Screen
         name="ChangeTrainingPage"
+        initialParams={{ itemId: userId ,userToken:userToken  }}
         component={ChangeTrainingPage}
         options={{
           title: 'Tréningy-zmena', 
@@ -178,6 +190,7 @@ const AddTrainingPageStack = ({navigation}) => {
   return (
     <Stack.Navigator
       initialRouteName="AddTrainingPage"
+      initialParams={{ itemId: userId ,userToken:userToken  }}
       screenOptions={{
         headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
@@ -192,6 +205,7 @@ const AddTrainingPageStack = ({navigation}) => {
       }}>
       <Stack.Screen
         name="AddTrainingPage"
+        initialParams={{ itemId: userId ,userToken:userToken  }}
         component={AddTrainingPage}
         options={{
           title: 'Tréningy-pridanie', 
@@ -200,8 +214,20 @@ const AddTrainingPageStack = ({navigation}) => {
     </Stack.Navigator>
   );
 };
+let userId =0
+let userToken =''
+const DrawerNavigationPage = ({route,navigation}) => {
+  userId  = route.params;
+  userToken  = route.params;
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(userId )
+  console.log(userToken )
 
-const DrawerNavigationPage = (props) => {
   return (
     <Drawer.Navigator
     screenOptions={{
@@ -216,9 +242,12 @@ const DrawerNavigationPage = (props) => {
       
       drawerContent={CustomSidebarMenu}>
       <Drawer.Screen
+        
         name="ContactPageStack"
         options={{drawerLabel: 'Kontakt'}}
         component={ContactPageStack}
+        
+
       />
       <Drawer.Screen
         name="PricingPageStack"

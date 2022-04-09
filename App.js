@@ -18,6 +18,7 @@ import DrawerNavigationPage from "./src/screens/DrawerNavigationPage";
 const Stack = createStackNavigator();
 
 const App = () => {
+  const itemId  = 89
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -28,12 +29,12 @@ const App = () => {
       >
         <Stack.Screen name="LandingPage" component={LandingPage} />
 
-        <Stack.Screen name="LoginPage" component={LoginPage} />
+        <Stack.Screen name="LoginPage" component={LoginPage}  initialParams={{ itemId: 60 }} />
         <Stack.Screen name="RegisterPage" component={RegisterPage} />
         <Stack.Screen
           name="DrawerNavigationPage"
           component={DrawerNavigationPage}
-          options={{ headerShown: false }}
+          
         />
         <Stack.Screen name="ContactPage" component={ContactPage} />
         <Stack.Screen name="CoachPage" component={CoachPage} />

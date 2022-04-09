@@ -15,7 +15,7 @@ import {
 
 
 
-  const RegisterPage = ({navigation}) =>  {
+  const RegisterPage = ({route,navigation}) =>  {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -24,7 +24,9 @@ import {
     isRegistraionSuccess,
     setIsRegistraionSuccess
   ] = useState(false);
-
+  const { userId } = route.params;
+  const { userToken } = route.params;
+  console.log(route)
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
 
