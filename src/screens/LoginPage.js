@@ -1,4 +1,4 @@
-import React, {useState, createRef} from 'react';
+import React, {state,useState, createRef} from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -16,8 +16,16 @@ import {
 
 
 
-const LoginPage = ({navigation}) => {
-  const [userEmail, setUserEmail] = useState('');
+const LoginPage = ({navigation,route}) => {
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  console.log(route)
+  
+  const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
@@ -26,8 +34,8 @@ const LoginPage = ({navigation}) => {
 
   const handleSubmitPress = () => {
     setErrortext('');
-    if (!userEmail) {
-      alert('Zadajte E-mail');
+    if (!userName) {
+      alert('Zadajte Meno');
       return;
     }
     if (!userPassword) {
@@ -35,7 +43,7 @@ const LoginPage = ({navigation}) => {
       return;
     }
     setLoading(true);
-    let dataToSend = {email: userEmail, password: userPassword};
+    let dataToSend = {name:userName, password: userPassword};
     let formBody = [];
     for (let key in dataToSend) {
       let encodedKey = encodeURIComponent(key);
@@ -44,35 +52,47 @@ const LoginPage = ({navigation}) => {
     }
     formBody = formBody.join('&');
 
-    fetch('http://localhost:3000/api/user/login', {
+    const requestOptions = {
       method: 'POST',
-      body: formBody,
-      headers: {
-        //Header Defination
-        'Content-Type':
-        'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: userName ,
+        password:userPassword })
+  };
+  fetch('http://127.0.0.1:8000/users/login', requestOptions)
+  .then(async response => {
+      const isJson = response.headers.get('content-type')?.includes('application/json');
+      const data = isJson && await response.json();
 
-        setLoading(false);
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status === 'success') {
-
-          console.log(responseJson.data.email);
-          navigation.replace('DrawerNavigationRoutes');
-        } else {
-          setErrortext(responseJson.msg);
-          console.log('Please check your email id or password');
-        }
-      })
-      .catch((error) => {
-        //Hide Loader
-        setLoading(false);
-        console.error(error);
-      });
+      // check for error response
+      if (!response.ok) {
+        console.error('bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+        console.log('Skontrulujte si svoje meno a heslo');
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+      }
+      else{
+        console.log(data.user_token)
+        console.log(data.id)
+        console.log(data.status)
+        
+        navigation.navigate('DrawerNavigationPage', {
+          userId: data.id,
+          userToken:data.user_token
+          
+        });
+        console.error('aaaaaaaaaaaaaaaaa');
+      }
+     console.log(data.user_token)
+     console.log(data.id)
+     console.log(data.status)
+     
+  })
+    .catch(error => {
+      console.log('Skontrulujte si svoje meno a heslo1');
+      alert('Skontrulujte si svoje meno a heslo1');
+      console.error('halo je tu error!');
+  });
+     
   };
 
   return (
@@ -99,13 +119,12 @@ const LoginPage = ({navigation}) => {
             <View style={styles.SectionStyle}>
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(UserEmail) =>
-                  setUserEmail(UserEmail)
+                onChangeText={(UserName) =>
+                  setUserName(UserName)
                 }
-                placeholder="Zadajte E-mail" //dummy@abc.com
+                placeholder="Zadajte Meno" //dummy@abc.com
                 placeholderTextColor="#8b9cb5"
-                autoCapitalize="none"
-                keyboardType="email-address"
+                autoCapitalize="sentences"
                 returnKeyType="next"
                 onSubmitEditing={() =>
                   passwordInputRef.current &&
@@ -140,7 +159,7 @@ const LoginPage = ({navigation}) => {
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}
-              /*onPress={handleSubmitPress}*/
+              onPress={handleSubmitPress}
               >
               <Text style={styles.buttonTextStyle}>Prihlásiť sa</Text>
             </TouchableOpacity>

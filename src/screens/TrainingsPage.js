@@ -1,53 +1,91 @@
-import React, { Component } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text } from "react-native";
+import React, { useEffect, useState } from 'react';
+import {
+    ActivityIndicator,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    ImageBackground,
+    Button,
+    TouchableOpacity,
+    Alert
+} from 'react-native';
 import CupertinoButtonBlackTextColor2 from "../components/CupertinoButtonBlackTextColor2";
 import Training_Get from "../components/TrainingsGet";
 
 
-const TrainingsPage = ({navigation}) => {
-        return (
-            <View style={styles.container}>
-                <ImageBackground
-                    source={require("../assets/images/image_JMVe..png")}
-                    resizeMode="contain"
-                    style={styles.image}
-                    imageStyle={styles.image_imageStyle}
-                >
-                    <View style={styles.image1Row}>
-                        <Image
-                            source={require("../assets/images/image_uZOV..png")}
-                            resizeMode="contain"
-                            style={styles.image1}
-                        ></Image>
-                        <View style={styles.dateTimeColumn}>
-                            <Text style={styles.dateTime}>{getTrainingsFromAPI()}Date/time</Text>
-                            <CupertinoButtonBlackTextColor2
-                                style={styles.cupertinoButtonBlackTextColor2}
-                            ></CupertinoButtonBlackTextColor2>
-                            <Training_Get></Training_Get>
-                        </View>
-                    </View>
-                    <View style={styles.image2Row}>
-                        <Image
-                            source={require("../assets/images/image_uZOV..png")}
-                            resizeMode="contain"
-                            style={styles.image2}
-                        ></Image>
-                        <View style={styles.dateTime2Column}>
-                            <Text style={styles.dateTime2}>time/date</Text>
-                            <CupertinoButtonBlackTextColor2
-                                style={styles.cupertinoButtonBlackTextColor3}
-                            ></CupertinoButtonBlackTextColor2>
-                        </View>
-                    </View>
-                </ImageBackground>
-            </View>
-        );
+const TrainingsPage = () => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    const getTrainings = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings');
+            const json = await response.json();
+            setData(json.training);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     }
+
+    useEffect(() => {
+        getTrainings();
+    }, []);
+
+    return (
+        <View style={styles.container}>
+            <ImageBackground
+                source={require("../assets/images/image_JMVe..png")}
+                resizeMode="contain"
+                style={styles.image}
+                imageStyle={styles.image_imageStyle}
+            >
+            {isLoading ? <ActivityIndicator/> : (
+                <FlatList
+                    data={data}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
+                        <View style={styles.image1Row}>
+                            <Image
+                                source={require("../assets/images/image_uZOV..png")}
+                                resizeMode="contain"
+                                style={styles.image1}
+                            ></Image>
+
+                            <View style={styles.dateTimeColumn}>
+                                <Text style={styles.titleTraining}>{item.title}</Text>
+                                <Text style={styles.dateTime}>{item.date} {item.time}</Text>
+                                <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
+                                                  onPress={() => {fetch('http://127.0.0.1:8000/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings/signup', {
+                                                          method: 'POST',
+                                                          headers: {
+                                                              Accept: 'application/json',
+                                                              'Content-Type': 'application/json'
+                                                          },
+                                                          body: JSON.stringify({
+                                                              user: 7,
+                                                              training: item.id
+                                                          })
+                                                  });alert("Prihlásený!")}}>
+
+                                    <Text style={styles.caption}>Prihlásiť sa{"\n"}na tréning</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
+                />)}
+            </ImageBackground>
+        </View>
+    )
+};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        borderColor: "black"
     },
     image: {
         height: 885,
@@ -59,15 +97,25 @@ const styles = StyleSheet.create({
         height: 153,
         width: 133
     },
+    titleTraining: {
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 25,
+        fontWeight: "bold",
+        alignItems:"center",
+        marginLeft:15,
+        marginBotton: 10
+    },
     dateTime: {
         fontFamily: "roboto-regular",
         color: "#121212",
-        fontSize: 25
+        fontSize: 15,
+        alignItems:"center",
+        margin:10
     },
     cupertinoButtonBlackTextColor2: {
         height: 44,
         width: 100,
-        marginTop: 14,
         marginLeft: 2
     },
     dateTimeColumn: {
@@ -81,7 +129,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginTop: 155,
         marginLeft: 147,
-        marginRight: 227
+        marginRight: 227,
+        borderColor:"black"
     },
     image2: {
         height: 153,
@@ -96,7 +145,8 @@ const styles = StyleSheet.create({
         height: 44,
         width: 100,
         marginTop: 9,
-        marginLeft: 4
+        marginLeft: 4,
+
     },
     dateTime2Column: {
         width: 107,
@@ -110,7 +160,19 @@ const styles = StyleSheet.create({
         marginTop: 22,
         marginLeft: 147,
         marginRight: 229
-    }
+    },
+        container_button: {
+            backgroundColor: "gray",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            borderRadius: 5
+        },
+        caption: {
+            color: "#000",
+            fontSize: 17,
+            textAlign: "center"
+        }
 });
 
 export default TrainingsPage;

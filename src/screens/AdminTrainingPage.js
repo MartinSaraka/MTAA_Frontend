@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Image, ImageBackground, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, View, Image, ImageBackground, Text, TouchableOpacity, Button} from "react-native";
 import CupertinoButtonBlackTextColor from "../components/CupertinoButtonBlackTextColor";
 import CupertinoButtonBlackTextColor1 from "../components/CupertinoButtonBlackTextColor1";
 import MaterialButtonHamburger from "../components/MaterialButtonHamburger";
