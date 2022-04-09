@@ -15,7 +15,7 @@ import {
 
 
 
-const RegisterScreen = (props) => {
+  const RegisterPage = ({navigation}) =>  {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -183,7 +183,7 @@ const RegisterScreen = (props) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             activeOpacity={0.5}
-            /*onPress={handleSubmitButton}*/
+            onPress={() => navigation.navigate('DrawerNavigationPage')}
             >
             <Text style={styles.buttonTextStyle}>Zaregistruj sa</Text>
           </TouchableOpacity>
@@ -193,7 +193,7 @@ const RegisterScreen = (props) => {
     </View>
   );
 };
-export default RegisterScreen;
+export default RegisterPage;
 
 const styles = StyleSheet.create({
   SectionStyle: {

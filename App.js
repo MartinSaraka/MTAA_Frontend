@@ -13,7 +13,7 @@ import AdminTrainingPage from "./src/screens/AdminTrainingPage";
 import TrainingsPage from "./src/screens/TrainingsPage";
 import ChangeTrainingPage from "./src/screens/ChangeTrainingPage";
 import AddTrainingPage from "./src/screens/AddTrainingPage";
-import DrawerNavigationPage from "./Screen/DrawerNavigationPage";
+import DrawerNavigationPage from "./src/screens/DrawerNavigationPage";
 
 const Stack = createStackNavigator();
 
