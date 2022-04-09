@@ -1,46 +1,49 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text } from "react-native";
 import CupertinoButtonBlackTextColor2 from "../components/CupertinoButtonBlackTextColor2";
+import Training_Get from "../components/TrainingsGet";
+
 
 const TrainingsPage = ({navigation}) => {
-    return (
-        <View style={styles.container}>
-            <ImageBackground
-                source={require("../assets/images/image_JMVe..png")}
-                resizeMode="contain"
-                style={styles.image}
-                imageStyle={styles.image_imageStyle}
-            >
-                <View style={styles.image1Row}>
-                    <Image
-                        source={require("../assets/images/image_uZOV..png")}
-                        resizeMode="contain"
-                        style={styles.image1}
-                    ></Image>
-                    <View style={styles.dateTimeColumn}>
-                        <Text style={styles.dateTime}>Date/time</Text>
-                        <CupertinoButtonBlackTextColor2
-                            style={styles.cupertinoButtonBlackTextColor2}
-                        ></CupertinoButtonBlackTextColor2>
+        return (
+            <View style={styles.container}>
+                <ImageBackground
+                    source={require("../assets/images/image_JMVe..png")}
+                    resizeMode="contain"
+                    style={styles.image}
+                    imageStyle={styles.image_imageStyle}
+                >
+                    <View style={styles.image1Row}>
+                        <Image
+                            source={require("../assets/images/image_uZOV..png")}
+                            resizeMode="contain"
+                            style={styles.image1}
+                        ></Image>
+                        <View style={styles.dateTimeColumn}>
+                            <Text style={styles.dateTime}>{getTrainingsFromAPI()}Date/time</Text>
+                            <CupertinoButtonBlackTextColor2
+                                style={styles.cupertinoButtonBlackTextColor2}
+                            ></CupertinoButtonBlackTextColor2>
+                            <Training_Get></Training_Get>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.image2Row}>
-                    <Image
-                        source={require("../assets/images/image_uZOV..png")}
-                        resizeMode="contain"
-                        style={styles.image2}
-                    ></Image>
-                    <View style={styles.dateTime2Column}>
-                        <Text style={styles.dateTime2}>Date/time</Text>
-                        <CupertinoButtonBlackTextColor2
-                            style={styles.cupertinoButtonBlackTextColor3}
-                        ></CupertinoButtonBlackTextColor2>
+                    <View style={styles.image2Row}>
+                        <Image
+                            source={require("../assets/images/image_uZOV..png")}
+                            resizeMode="contain"
+                            style={styles.image2}
+                        ></Image>
+                        <View style={styles.dateTime2Column}>
+                            <Text style={styles.dateTime2}>time/date</Text>
+                            <CupertinoButtonBlackTextColor2
+                                style={styles.cupertinoButtonBlackTextColor3}
+                            ></CupertinoButtonBlackTextColor2>
+                        </View>
                     </View>
-                </View>
-            </ImageBackground>
-        </View>
-    );
-}
+                </ImageBackground>
+            </View>
+        );
+    }
 
 const styles = StyleSheet.create({
     container: {

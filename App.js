@@ -13,6 +13,8 @@ import AdminTrainingPage from './src/screens/AdminTrainingPage';
 import TrainingsPage from './src/screens/TrainingsPage';
 import ChangeTrainingPage from './src/screens/ChangeTrainingPage';
 import AddTrainingPage from './src/screens/AddTrainingPage';
+import TestPage from './src/screens/TestPage';
+import GroupPage from './src/screens/GroupPage';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -22,7 +24,7 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={"AdminTrainingPage"}
+        initialRouteName={"AddTrainingPage"}
       >
         <Stack.Screen name="LandingPage" component={LandingPage} />
 
@@ -31,11 +33,13 @@ const App = () => {
 
           <Stack.Screen name="CoachPage" component={CoachPage} />
           <Stack.Screen name="PricingPage" component={PricingPage} />
-          <Stack.Screen name="AdminTrainingPage" component={AdminTrainingPage} />
+        <Stack.Screen name="ContactPage" component={ContactPage} />
           <Stack.Screen name="TrainingsPage" component={TrainingsPage} />
-          <Stack.Screen name="ContactPage" component={ContactPage} />
+        <Stack.Screen name="AdminTrainingPage" component={AdminTrainingPage} />
           <Stack.Screen name="ChangeTrainingPage" component={ChangeTrainingPage} />
         <Stack.Screen name="AddTrainingPage" component={AddTrainingPage} />
+        <Stack.Screen name="TestPage" component={TestPage} />
+        <Stack.Screen name="GroupPage" component={GroupPage} />
       </Stack.Navigator>
 
 

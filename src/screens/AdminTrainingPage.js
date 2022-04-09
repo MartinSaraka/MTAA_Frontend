@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {StyleSheet, View, Image, ImageBackground, Text, TouchableOpacity} from "react-native";
 import CupertinoButtonBlackTextColor from "../components/CupertinoButtonBlackTextColor";
 import CupertinoButtonBlackTextColor1 from "../components/CupertinoButtonBlackTextColor1";
+import MaterialButtonHamburger from "../components/MaterialButtonHamburger";
 
 const AdminTrainingPage = ({navigation}) => {
     return (
@@ -13,12 +14,14 @@ const AdminTrainingPage = ({navigation}) => {
                     style={styles.image}
                     imageStyle={styles.image_imageStyle}
                 >
+
                     <View style={styles.image2Row}>
                         <Image
                             source={require("../assets/images/image_uZOV..png")}
                             resizeMode="contain"
                             style={styles.image2}
                         ></Image>
+
                         <View style={styles.dateTimeStack}>
                             <Text style={styles.dateTime}>Date/time</Text>
                             <TouchableOpacity
@@ -35,6 +38,11 @@ const AdminTrainingPage = ({navigation}) => {
                             ></CupertinoButtonBlackTextColor1>
                         </View>
                     </View>
+                    <Button
+                        style={styles.materialButtonHamburger}
+                        activeOpacity={0.5}
+                        onPress={() =>  navigation.replace('LandingPage')}>
+                        ></Button>
                     <View style={styles.image3Row}>
                         <Image
                             source={require("../assets/images/image_uZOV..png")}
@@ -95,6 +103,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 0,
         top: 21
+    },
+    materialButtonHamburger: {
+        height: 36,
+        width: 36,
+        backgroundColor: "rgba(0,0,0,1)",
+        marginTop: 57,
+        marginLeft: 428
     },
     cupertinoButtonBlackTextColor1: {
         height: 44,

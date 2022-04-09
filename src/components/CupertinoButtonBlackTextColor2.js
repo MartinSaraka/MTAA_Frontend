@@ -3,14 +3,14 @@ import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 function CupertinoButtonBlackTextColor2(props) {
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableOpacity style={styles.container_button}>
       <Text style={styles.caption}>Prihlásiť sa{"\n"}na tréning</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container_button: {
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",

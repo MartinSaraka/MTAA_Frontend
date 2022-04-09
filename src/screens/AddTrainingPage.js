@@ -1,10 +1,17 @@
-import React, { Component } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text } from "react-native";
+import React, { useState, Component } from "react";
+import { StyleSheet, View, Image, ImageBackground, Text, TextInput, TouchableOpacity } from "react-native";
 import MaterialUnderlineTextbox from "../components/MaterialUnderlineTextbox";
 import MaterialUnderlineTextbox1 from "../components/MaterialUnderlineTextbox1";
 import MaterialButtonViolet from "../components/MaterialButtonViolet";
 
 const AddTrainingPage = ({navigation}) => {
+    const [title, setTitle] = useState('');
+    const [time, setTime] = useState('');
+    const [date, setDate] = useState('');
+    const [
+        isTrainingSuccess,
+        setIsTrainingSuccess
+    ] = useState(false);
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -14,20 +21,81 @@ const AddTrainingPage = ({navigation}) => {
                 imageStyle={styles.image1_imageStyle}
             >
                 <Text style={styles.nazovTreningu1}>Názov tréningu</Text>
-                <MaterialUnderlineTextbox
-                    style={styles.materialUnderlineTextbox1}
-                ></MaterialUnderlineTextbox>
+                <View style={styles.SectionStyle}>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={(title) => setTitle(title)}
+                        underlineColorAndroid="#f000"
+                        placeholder="Zadaj názov"
+                        placeholderTextColor="#8b9cb5"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                    />
+                </View>
                 <Text style={styles.casTreningu1}>Čas tréningu</Text>
-                <MaterialUnderlineTextbox1
-                    style={styles.materialUnderlineTextbox2}
-                ></MaterialUnderlineTextbox1>
+                <View style={styles.SectionStyle}>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={(time) => setTime(time)}
+                        underlineColorAndroid="#f000"
+                        placeholder="Zadajte čas"
+                        placeholderTextColor="#8b9cb5"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                    />
+                </View>
                 <Text style={styles.datumTreningu1}>Dátum tréningu</Text>
-                <MaterialUnderlineTextbox1
-                    style={styles.materialUnderlineTextbox3}
-                ></MaterialUnderlineTextbox1>
-                <MaterialButtonViolet
+                <View style={styles.SectionStyle}>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={(date) => setDate(date)}
+                        underlineColorAndroid="#f000"
+                        placeholder="Zadaj dátum"
+                        placeholderTextColor="#8b9cb5"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                    />
+                </View>
+                <TouchableOpacity
                     style={styles.materialButtonViolet}
-                ></MaterialButtonViolet>
+
+                    onPress={() => {fetch('http://127.0.0.1:8000/admin/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings', {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            date: date,
+                            time: time,
+                            coach: 1,
+                        })
+                    }).then(async response => {
+                        const data = await response.status;
+                        console.log(data)
+
+                        // check for error response
+                        if (!response.ok) {
+                            console.error('bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+                            console.log('Skontrulujte si svoje meno a heslo')
+                            alert('Nesprávny vstup');
+                            const error = (data && data.message) || response.status;
+                            return Promise.reject(error);
+                        }
+                        else{
+
+                            alert("Pridaný tréning")
+                            navigation.replace('AdminTrainingsPage');
+                        }
+                    })
+                        .catch(error => {
+                            console.log(error)
+                            console.error('halo je tu error!');
+
+                        })}}>
+                    <Text style={styles.zmenitTrening}>Pridať tréning</Text>
+                </TouchableOpacity>
             </ImageBackground>
         </View>
     );
@@ -83,12 +151,36 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(155,155,155,1)",
         marginLeft: 242
     },
+    inputStyle: {
+        flex: 1,
+        color: 'white',
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderWidth: 1,
+        borderRadius: 30,
+        borderColor: '#dadae8',
+        width: 100
+    },
     materialButtonViolet: {
         height: 51,
         width: 124,
         backgroundColor: "rgba(65,117,5,1)",
         marginTop: 25,
-        marginLeft: 477
+        marginLeft: 450
+    },
+    SectionStyle: {
+        flexDirection: 'row',
+        height: 40,
+        width:340,
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 35,
+        margin: 10,
+        alignSelf:"center"
+    },
+    zmenitTrening: {
+        color: "#fff",
+        fontSize: 14
     }
 });
 
