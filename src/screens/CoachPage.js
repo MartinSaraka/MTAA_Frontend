@@ -25,6 +25,7 @@ const CoachPage = ({navigation}) => {
                 <Text style={styles.trenerkaUrsula}>Trénerka Uršula</Text>
             </ImageBackground>
         </View>
+
     );
 }
 

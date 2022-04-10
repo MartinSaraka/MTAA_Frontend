@@ -16,6 +16,7 @@ import TrainingsPage from "./src/screens/TrainingsPage";
 import ChangeTrainingPage from "./src/screens/ChangeTrainingPage";
 import AddTrainingPage from "./src/screens/AddTrainingPage";
 import DrawerNavigationPage from "./src/screens/DrawerNavigationPage";
+import ChangeGroupPage from "./src/screens/ChangeGroupPage";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -28,9 +29,10 @@ const App = () => {
             }}
             initialRouteName={"LandingPage"}
         >
+            <Stack.Screen name="ChangeGroupPage" component={ChangeGroupPage} />
             <Stack.Screen name="LandingPage" component={LandingPage} />
 
-            <Stack.Screen name="LoginPage" component={LoginPage}  initialParams={{ itemId: 60 }} />
+            <Stack.Screen name="LoginPage" component={LoginPage}   />
             <Stack.Screen name="RegisterPage" component={RegisterPage} />
             <Stack.Screen
                 name="DrawerNavigationPage"

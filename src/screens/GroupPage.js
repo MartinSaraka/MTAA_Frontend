@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignItems:"center",
         marginLeft:15,
-        marginBotton: 10,
+        marginBottom: 10,
         width: 3000
     },
     titleH: {

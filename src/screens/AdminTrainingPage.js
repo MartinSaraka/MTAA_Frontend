@@ -60,7 +60,10 @@ const AdminTrainingPage = ({navigation, route}) => {
                                     <Text style={styles.titleTraining}>{item.title}</Text>
                                     <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                     <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
-                                                      onPress={() =>  navigation.replace('ChangeTrainingPage')}
+                                                      onPress={() =>  navigation.navigate('ChangeTrainingPage', {
+                                                          userToken:userToken,
+                                                          trainingId:item.id
+                                                      })}
                                                       activeOpacity={0.5}>
 
                                         <Text style={styles.caption}>Upraviť{"\n"}tréning</Text>
@@ -76,6 +79,7 @@ const AdminTrainingPage = ({navigation, route}) => {
                                                           }
                                                       });alert("Odstránené!")}}
                                                       activeOpacity={0.5}>
+
 
                                         <Text style={styles.caption}>Odstrániť{"\n"}tréning</Text>
                                     </TouchableOpacity>
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignItems:"center",
         marginLeft:15,
-        marginBotton: 10
+        marginBottom: 10
     },
     dateTime: {
         fontFamily: "roboto-regular",

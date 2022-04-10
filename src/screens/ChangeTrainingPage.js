@@ -5,7 +5,9 @@ import MaterialUnderlineTextbox1 from "../components/MaterialUnderlineTextbox1";
 import MaterialButtonDark from "../components/MaterialButtonDark";
 
 const ChangeTrainingPage = ({navigation, route}) => {
-    let userToken = route.params['userToken']['userToken']
+    console.log(route)
+    let userToken = route.params['userToken']
+    let trainingId = route.params['trainingId']
     const [title, setTitle] = useState('');
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
@@ -39,7 +41,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
                         style={styles.inputStyle}
                         onChangeText={(time) => setTime(time)}
                         underlineColorAndroid="#f000"
-                        placeholder="Zadajte čas"
+                        placeholder="Zadaj čas"
                         placeholderTextColor="#8b9cb5"
                         returnKeyType="next"
                         blurOnSubmit={false}
@@ -60,7 +62,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings/change/21`, {
+                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings/change/${trainingId}`, {
                         method: 'PUT',
                         headers: {
                             Accept: 'application/json',

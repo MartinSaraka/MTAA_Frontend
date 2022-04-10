@@ -18,6 +18,7 @@ import Training_Get from "../components/TrainingsGet";
 const TrainingsPage = (route) => {
     console.log(route['route'].params)
     let userToken = route['route'].params['userToken']['userToken']
+    let userId = route['route'].params['userToken']['userId']
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -70,7 +71,7 @@ const TrainingsPage = (route) => {
                                                               'Content-Type': 'application/json'
                                                           },
                                                           body: JSON.stringify({
-                                                              user: 7,
+                                                              user: userId,
                                                               training: item.id
                                                           })
                                                   });alert("Prihlásený!")}}>
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignItems:"center",
         marginLeft:15,
-        marginBotton: 10
+        marginBottom: 10
     },
     dateTime: {
         fontFamily: "roboto-regular",
