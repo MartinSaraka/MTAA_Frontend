@@ -4,7 +4,11 @@ import MaterialUnderlineTextbox from "../components/MaterialUnderlineTextbox";
 import MaterialUnderlineTextbox1 from "../components/MaterialUnderlineTextbox1";
 import MaterialButtonViolet from "../components/MaterialButtonViolet";
 
-const AddTrainingPage = ({navigation}) => {
+const AddTrainingPage = ({navigation, route}) => {
+    let userId  = route.params;
+    let userToken  = route.params;
+    console.log("hello",userToken['userToken']['userToken'])
+    console.log(route)
     const [title, setTitle] = useState('');
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
@@ -59,7 +63,7 @@ const AddTrainingPage = ({navigation}) => {
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch('http://127.0.0.1:8000/admin/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings', {
+                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken['userToken']['userToken']}/trainings`, {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json',
@@ -86,7 +90,6 @@ const AddTrainingPage = ({navigation}) => {
                         else{
 
                             alert("Pridaný tréning")
-                            navigation.replace('AdminTrainingsPage');
                         }
                     })
                         .catch(error => {

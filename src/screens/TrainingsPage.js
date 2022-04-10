@@ -15,13 +15,16 @@ import CupertinoButtonBlackTextColor2 from "../components/CupertinoButtonBlackTe
 import Training_Get from "../components/TrainingsGet";
 
 
-const TrainingsPage = () => {
+const TrainingsPage = (route) => {
+    console.log(route['route'].params)
+    let userToken = route['route'].params['userToken']['userToken']
+
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
     const getTrainings = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings');
+            const response = await fetch(`http://127.0.0.1:8000/${userToken}/trainings`);
             const json = await response.json();
             setData(json.training);
         } catch (error) {
@@ -57,9 +60,10 @@ const TrainingsPage = () => {
 
                             <View style={styles.dateTimeColumn}>
                                 <Text style={styles.titleTraining}>{item.title}</Text>
+                                <Text style={styles.dateTime}>{item.signed_up ? "Prihlásený" : "Neprihlásený"}</Text>
                                 <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                 <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
-                                                  onPress={() => {fetch('http://127.0.0.1:8000/CHbUs3NTcHrH08PNHZsa1BsKFSkQgvZx/trainings/signup', {
+                                                  onPress={() => {fetch(`http://127.0.0.1:8000/${userToken}/trainings/signup`, {
                                                           method: 'POST',
                                                           headers: {
                                                               Accept: 'application/json',
@@ -125,9 +129,9 @@ const styles = StyleSheet.create({
         marginBottom: 32
     },
     image1Row: {
-        height: 153,
+        height: 203,
         flexDirection: "row",
-        marginTop: 155,
+        marginTop: 100,
         marginLeft: 147,
         marginRight: 227,
         borderColor:"black"
