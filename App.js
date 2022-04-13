@@ -44,6 +44,7 @@ const App = () => {
             <Stack.Screen name="PricingPage" component={PricingPage} />
             <Stack.Screen name="AdminTrainingPage" component={AdminTrainingPage} />
             <Stack.Screen name="TrainingsPage" component={TrainingsPage} />
+            
             <Stack.Screen
                 name="ChangeTrainingPage"
                 component={ChangeTrainingPage}

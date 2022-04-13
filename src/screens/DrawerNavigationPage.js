@@ -15,6 +15,8 @@ import ChangeTrainingPage from "./ChangeTrainingPage";
 import AddTrainingPage from "./AddTrainingPage";
 import CustomSidebarMenu from "../components/CustomSidebarMenu";
 import NavigationDrawerHeader from "../components/NavigationDrawerHeader";
+import ChangeGroupPage from "./ChangeGroupPage";
+import GroupPage from "./GroupPage";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -214,18 +216,75 @@ const AddTrainingPageStack = ({ navigation }) => {
           title: "Tréningy-pridanie",
         }}
       />
+      
     </Stack.Navigator>
   );
+};
+  const GroupPageStack = ({ navigation }) => {
+    return (
+      <Stack.Navigator
+        initialRouteName="GroupPage"
+        initialParams={{ itemId: userId, userToken: userToken }}
+        screenOptions={{
+          headerLeft: () => (
+            <NavigationDrawerHeader navigationProps={navigation} />
+          ),
+          headerStyle: {
+            backgroundColor: "#307ecc",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="GroupPage"
+          initialParams={{ itemId: userId, userToken: userToken }}
+          component={GroupPage}
+          options={{
+            title: "Skupinový tréning",
+          }}
+        />
+        
+      </Stack.Navigator>
+    );
+  };
+    const ChangeGroupPageStack = ({ navigation }) => {
+      return (
+        <Stack.Navigator
+          initialRouteName="ChangeGroupPage"
+          initialParams={{ itemId: userId, userToken: userToken }}
+          screenOptions={{
+            headerLeft: () => (
+              <NavigationDrawerHeader navigationProps={navigation} />
+            ),
+            headerStyle: {
+              backgroundColor: "#307ecc",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >
+          <Stack.Screen
+            name="ChangeGroupPage"
+            initialParams={{ itemId: userId, userToken: userToken }}
+            component={ChangeGroupPage}
+            options={{
+              title: "Skupinové tréningy-zmena",
+            }}
+          />
+          
+        </Stack.Navigator>
+      );
 };
 let userId = 0;
 let userToken = "";
 const DrawerNavigationPage = ({ route, navigation }) => {
   userId = route.params;
   userToken = route.params;
-  console.log(route);
-  console.log(route);
-  console.log(route);
-  console.log(route);
   console.log(route);
   console.log(route);
   console.log(userId);
@@ -282,6 +341,11 @@ const DrawerNavigationPage = ({ route, navigation }) => {
             options={{ drawerLabel: "Pridanie tréningu" }}
             component={AddTrainingPageStack}
           />
+          <Drawer.Screen
+            name="ChangeGroupPageStack"
+            options={{ drawerLabel: "Skupinový tréning-zmena" }}
+            component={ChangeGroupPageStack}
+          />
         </>
       ) : (
         <>
@@ -289,6 +353,11 @@ const DrawerNavigationPage = ({ route, navigation }) => {
             name="CoachPageStack"
             options={{ drawerLabel: "Trenéri" }}
             component={CoachPageStack}
+          />
+          <Drawer.Screen
+            name="GroupPageStack"
+            options={{ drawerLabel: "Skupinový tréning" }}
+            component={GroupPageStack}
           />
           <Drawer.Screen
             name="ContactPageStack"

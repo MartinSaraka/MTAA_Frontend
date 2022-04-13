@@ -69,7 +69,9 @@ const ChangeGroupPage = ({navigation, route}) => {
         }
     };
     return (
-        <View style={styles.container}>
+        <View style={styles.container}
+        >
+            
             <ImageBackground
                 source={require("../assets/images/image_rjQC..png")}
                 resizeMode="contain"

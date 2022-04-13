@@ -61,9 +61,11 @@ const AdminTrainingPage = ({navigation, route}) => {
                                     <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                     <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
                                                       onPress={() =>  navigation.navigate('ChangeTrainingPage', {
+                                                          
                                                           userToken:userToken,
                                                           trainingId:item.id
                                                       })}
+                                                      
                                                       activeOpacity={0.5}>
 
                                         <Text style={styles.caption}>Upraviť{"\n"}tréning</Text>
