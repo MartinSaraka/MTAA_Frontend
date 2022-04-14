@@ -16,7 +16,7 @@ import Training_Get from "../components/TrainingsGet";
 
 
 const GroupPage = (route) => {
-    let userToken = route.params['userToken']['userToken']
+    let userToken = route['route'].params['userToken']['userToken']
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 

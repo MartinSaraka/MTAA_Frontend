@@ -15,7 +15,9 @@ import CupertinoButtonBlackTextColor1 from "../components/CupertinoButtonBlackTe
 import MaterialButtonHamburger from "../components/MaterialButtonHamburger";
 
 const AdminTrainingPage = ({navigation, route}) => {
+    console.log(route)
     let userToken  = route.params['userToken']['userToken'];
+    let userId  = route.params['userToken']['userId'];
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
@@ -62,7 +64,8 @@ const AdminTrainingPage = ({navigation, route}) => {
                                     <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
                                                       onPress={() =>  navigation.navigate('ChangeTrainingPage', {
                                                           userToken:userToken,
-                                                          trainingId:item.id
+                                                          trainingId:item.id,
+                                                          userId:userId
                                                       })}
                                                       activeOpacity={0.5}>
 

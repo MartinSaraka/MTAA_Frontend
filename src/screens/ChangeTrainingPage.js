@@ -8,6 +8,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
     console.log(route)
     let userToken = route.params['userToken']
     let trainingId = route.params['trainingId']
+    let userId = route.params['userToken']
     const [title, setTitle] = useState('');
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
@@ -94,7 +95,11 @@ const ChangeTrainingPage = ({navigation, route}) => {
                             console.log(error)
                             console.error('halo je tu error!');
 
-                        })}}>
+                        });navigation.navigate('DrawerNavigationPage',{
+                            userId: userId,
+                            userToken:userToken
+
+                    })}}>
                     <Text style={styles.zmenitTrening}>Zmeniť tréning</Text>
                 </TouchableOpacity>
             </ImageBackground>

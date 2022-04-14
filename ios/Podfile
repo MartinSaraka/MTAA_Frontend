@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'untitled2' do
@@ -10,6 +10,8 @@ target 'untitled2' do
   # Flags change depending on the env values.
   flags = get_default_flags()
 
+  pod 'expo-dev-launcher', path: '../node_modules/expo-dev-launcher', :configurations => :debug
+  pod 'expo-dev-menu', path: '../node_modules/expo-dev-menu', :configurations => :debug
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods

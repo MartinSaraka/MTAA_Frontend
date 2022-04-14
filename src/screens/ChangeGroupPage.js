@@ -1,10 +1,14 @@
 import React, { Component,useState } from "react";
-import {StyleSheet, View, Image, ImageBackground, TextInput, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, View, Image, ImageBackground, TextInput, Text, TouchableOpacity, Button} from "react-native";
 import DocumentPicker from 'react-native-document-picker';
+import * as ImagePicker from "expo-image-picker";
 
 const ChangeGroupPage = ({navigation, route}) => {
     //let userToken = route.params['userToken']
     let userToken = 'i5aQSJUTBmb5ktDpDw7RQyMQar5EqzUq'
+    const [time, setTime] = useState('');
+    const [date, setDate] = useState('');
+    /*
     const [singleFile, setSingleFile] = useState(null);
     //kód na súbory prevzatý z https://aboutreact.com/file-uploading-in-react-native/
     const uploadImage = async () => {
@@ -39,9 +43,10 @@ const ChangeGroupPage = ({navigation, route}) => {
     const selectFile = async () => {
         // Opening Document Picker to select one file
         try {
-            const res = await DocumentPicker.pick({
+            const res = await DocumentPicker.pickSingle({
                 // Provide which type of file you want user to pick
                 type: [DocumentPicker.types.allFiles],
+                presentationStyle: 'fullScreen',
                 // There can me more options as well
                 // DocumentPicker.types.allFiles
                 // DocumentPicker.types.images
@@ -66,6 +71,23 @@ const ChangeGroupPage = ({navigation, route}) => {
                 alert('Unknown Error: ' + JSON.stringify(err));
                 throw err;
             }
+        }
+    };*/
+    const [image, setImage] = useState(null);
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        global.image = result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
         }
     };
     return (
@@ -101,41 +123,19 @@ const ChangeGroupPage = ({navigation, route}) => {
                         blurOnSubmit={false}
                     />
                 </View>
-                {singleFile != null ? (
-                    <Text style={styles.textStyle}>
-                        File Name: {singleFile.name ? singleFile.name : ''}
-                        {'\n'}
-                        Type: {singleFile.type ? singleFile.type : ''}
-                        {'\n'}
-                        File Size: {singleFile.size ? singleFile.size : ''}
-                        {'\n'}
-                        URI: {singleFile.uri ? singleFile.uri : ''}
-                        {'\n'}
-                    </Text>
-                ) : null}
-                <TouchableOpacity
-                    style={styles.buttonStyle}
-                    activeOpacity={0.5}
-                    onPress={selectFile}>
-                    <Text style={styles.buttonTextStyle}>Select File</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.buttonStyle}
-                    activeOpacity={0.5}
-                    onPress={uploadImage}>
-                    <Text style={styles.buttonTextStyle}>Upload File</Text>
-                </TouchableOpacity>
+                <Button title="Pick an image from camera roll" onPress={pickImage} />
+                {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings/grouptraining`, {
+                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/grouptrainings`, {
                         method: 'PUT',
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            title: title,
+                            image: image,
                             date: date,
                             time: time
                         })
@@ -153,7 +153,7 @@ const ChangeGroupPage = ({navigation, route}) => {
                         }
                         else{
 
-                            alert("Pridaný tréning")
+                            alert("Zmenený tréning")
                         }
                     })
                         .catch(error => {
