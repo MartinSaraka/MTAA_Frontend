@@ -16,13 +16,14 @@ import Training_Get from "../components/TrainingsGet";
 
 
 const GroupPage = (route) => {
+
     let userToken = route['route'].params['userToken']['userToken']
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
     const getGroupTrainings = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/${userToken}/trainings/grouptrainings`);
+            const response = await fetch(`http://192.168.0.101:8000/${userToken}/trainings/grouptrainings`);
             const json = await response.json();
             setData(json);
             console.log(data)

@@ -58,7 +58,7 @@ const LoginPage = ({navigation,route}) => {
       body: JSON.stringify({ name: userName ,
         password:userPassword })
   };
-  fetch('http://127.0.0.1:8000/users/login', requestOptions)
+  fetch('http://192.168.0.101:8000/users/login', requestOptions)
   .then(async response => {
       const isJson = response.headers.get('content-type')?.includes('application/json');
       const data = isJson && await response.json();
@@ -74,25 +74,25 @@ const LoginPage = ({navigation,route}) => {
         console.log(data.user_token)
         console.log(data.id)
         console.log(data.status)
-        
+
         navigation.navigate('DrawerNavigationPage', {
           userId: data.id,
           userToken:data.user_token
-          
+
         });
         console.error('aaaaaaaaaaaaaaaaa');
       }
      console.log(data.user_token)
      console.log(data.id)
      console.log(data.status)
-     
+
   })
     .catch(error => {
       console.log('Skontrulujte si svoje meno a heslo1');
       alert('Skontrulujte si svoje meno a heslo1');
       console.error('halo je tu error!');
   });
-     
+
   };
 
   return (
@@ -161,7 +161,7 @@ const LoginPage = ({navigation,route}) => {
               activeOpacity={0.5}
               onPress={handleSubmitPress}
               >
-              <Text 
+              <Text
               style={styles.buttonTextStyle}>Prihlásiť sa</Text>
             </TouchableOpacity>
             <Text

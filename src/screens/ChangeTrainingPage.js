@@ -3,6 +3,7 @@ import {StyleSheet, View, Image, ImageBackground, Text, TextInput, TouchableOpac
 import MaterialUnderlineTextbox from "../components/MaterialUnderlineTextbox";
 import MaterialUnderlineTextbox1 from "../components/MaterialUnderlineTextbox1";
 import MaterialButtonDark from "../components/MaterialButtonDark";
+import AdminTrainingPage from "./AdminTrainingPage";
 
 const ChangeTrainingPage = ({navigation, route}) => {
     console.log(route)
@@ -63,7 +64,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings/change/${trainingId}`, {
+                    onPress={() => {fetch(`http://192.168.0.101:8000/admin/${userToken}/trainings/change/${trainingId}`, {
                         method: 'PUT',
                         headers: {
                             Accept: 'application/json',
@@ -88,7 +89,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
                         }
                         else{
 
-                            alert("Pridaný tréning")
+                            alert("Zmenený tréning")
                         }
                     })
                         .catch(error => {
@@ -99,7 +100,7 @@ const ChangeTrainingPage = ({navigation, route}) => {
                             userId: userId,
                             userToken:userToken
 
-                    })}}>
+                    });console.log(AdminTrainingPage)}}>
                     <Text style={styles.zmenitTrening}>Zmeniť tréning</Text>
                 </TouchableOpacity>
             </ImageBackground>

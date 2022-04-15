@@ -91,7 +91,9 @@ const ChangeGroupPage = ({navigation, route}) => {
         }
     };
     return (
-        <View style={styles.container}>
+        <View style={styles.container}
+        >
+
             <ImageBackground
                 source={require("../assets/images/image_rjQC..png")}
                 resizeMode="contain"
@@ -128,7 +130,7 @@ const ChangeGroupPage = ({navigation, route}) => {
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/grouptrainings`, {
+                    onPress={() => {fetch(`http://192.168.0.101:8000/admin/${userToken}/grouptrainings`, {
                         method: 'PUT',
                         headers: {
                             Accept: 'application/json',

@@ -5,10 +5,10 @@ import MaterialUnderlineTextbox1 from "../components/MaterialUnderlineTextbox1";
 import MaterialButtonViolet from "../components/MaterialButtonViolet";
 
 const AddTrainingPage = ({navigation, route}) => {
-    let userId  = route.params['userToken']['userToken'];
-    let userToken  = route.params;
-    console.log("hello",userToken['userToken']['userToken'])
+    let userToken  = route.params['userToken']['userToken'];
+    let userId  = route.params['userToken']['userId'];
     console.log(route)
+    //console.log("hello", userToken['userToken']['userToken'])
     const [title, setTitle] = useState('');
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
@@ -63,7 +63,7 @@ const AddTrainingPage = ({navigation, route}) => {
                 <TouchableOpacity
                     style={styles.materialButtonViolet}
 
-                    onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings`, {
+                    onPress={() => {fetch(`http://192.168.0.101:8000/admin/${userToken}/trainings`, {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json',

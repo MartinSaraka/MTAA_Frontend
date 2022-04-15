@@ -1,4 +1,5 @@
 import React, {Component, useEffect, useState} from "react";
+import RNRestart from 'react-native-restart';
 import {render} from 'react-dom';
 import {
     StyleSheet,
@@ -8,11 +9,16 @@ import {
     Text,
     TouchableOpacity,
     Button,
-    ActivityIndicator, FlatList
+    ActivityIndicator, FlatList,
+    RefreshControl
 } from "react-native";
 import CupertinoButtonBlackTextColor from "../components/CupertinoButtonBlackTextColor";
 import CupertinoButtonBlackTextColor1 from "../components/CupertinoButtonBlackTextColor1";
 import MaterialButtonHamburger from "../components/MaterialButtonHamburger";
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const AdminTrainingPage = ({navigation, route}) => {
     console.log(route)
@@ -20,10 +26,11 @@ const AdminTrainingPage = ({navigation, route}) => {
     let userId  = route.params['userToken']['userId'];
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const getTrainings = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/${userToken}/trainings`);
+            const response = await fetch(`http://192.168.0.101:8000/${userToken}/trainings`);
             const json = await response.json();
             setData(json.training);
         } catch (error) {
@@ -37,6 +44,13 @@ const AdminTrainingPage = ({navigation, route}) => {
         getTrainings();
     }, []);
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2).then(() => setRefreshing(false));
+        getTrainings()
+    }, []);
+
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -49,6 +63,12 @@ const AdminTrainingPage = ({navigation, route}) => {
                     <FlatList
                         data={data}
                         keyExtractor={({ id }, index) => id}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                         renderItem={({ item }) => (
                             <View style={styles.image1Row}>
                                 <Image
@@ -62,11 +82,13 @@ const AdminTrainingPage = ({navigation, route}) => {
                                     <Text style={styles.titleTraining}>{item.title}</Text>
                                     <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                     <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
-                                                      onPress={() =>  navigation.navigate('ChangeTrainingPage', {
+                                                      onPress={() =>  {navigation.navigate('ChangeTrainingPage', {
+
                                                           userToken:userToken,
                                                           trainingId:item.id,
                                                           userId:userId
-                                                      })}
+                                                      })}}
+
                                                       activeOpacity={0.5}>
 
                                         <Text style={styles.caption}>Upraviť{"\n"}tréning</Text>
@@ -74,7 +96,7 @@ const AdminTrainingPage = ({navigation, route}) => {
                                     </View>
                                     <View>
                                     <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
-                                                      onPress={() => {fetch(`http://127.0.0.1:8000/admin/${userToken}/trainings/${item.id}`, {
+                                                      onPress={() => {fetch(`http://192.168.0.101:8000/admin/${userToken}/trainings/${item.id}`, {
                                                           method: 'DELETE',
                                                           headers: {
                                                               Accept: 'application/json',

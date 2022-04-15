@@ -9,11 +9,14 @@ import {
     ImageBackground,
     Button,
     TouchableOpacity,
-    Alert
+    Alert, RefreshControl
 } from 'react-native';
 import CupertinoButtonBlackTextColor2 from "../components/CupertinoButtonBlackTextColor2";
 import Training_Get from "../components/TrainingsGet";
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const TrainingsPage = (route) => {
     console.log(route['route'].params)
@@ -22,10 +25,11 @@ const TrainingsPage = (route) => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const getTrainings = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/${userToken}/trainings`);
+            const response = await fetch(`http://192.168.0.101:8000/${userToken}/trainings`);
             const json = await response.json();
             setData(json.training);
         } catch (error) {
@@ -39,6 +43,12 @@ const TrainingsPage = (route) => {
         getTrainings();
     }, []);
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2).then(() => setRefreshing(false));
+        getTrainings()
+    }, []);
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -47,10 +57,16 @@ const TrainingsPage = (route) => {
                 style={styles.image}
                 imageStyle={styles.image_imageStyle}
             >
-            {isLoading ? <ActivityIndicator/> : (
-                <FlatList
-                    data={data}
-                    keyExtractor={({ id }, index) => id}
+                {isLoading ? <ActivityIndicator/> : (
+                    <FlatList
+                        data={data}
+                        keyExtractor={({ id }, index) => id}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     renderItem={({ item }) => (
                         <View style={styles.image1Row}>
                             <Image
@@ -61,6 +77,7 @@ const TrainingsPage = (route) => {
 
                             <View style={styles.dateTimeColumn}>
                                 <Text style={styles.titleTraining}>{item.title}</Text>
+                                {console.log(item)}
                                 <Text style={styles.dateTime}>{item.signed_up ? "Prihlásený" : "Neprihlásený"}</Text>
                                 <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                 <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
