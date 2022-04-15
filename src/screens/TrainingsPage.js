@@ -41,11 +41,12 @@ const TrainingsPage = (route) => {
 
     useEffect(() => {
         getTrainings();
+        console.warn(data)
     }, []);
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(2).then(() => setRefreshing(false));
+        wait(1000).then(() => setRefreshing(false));
         getTrainings()
     }, []);
 
@@ -81,7 +82,7 @@ const TrainingsPage = (route) => {
                                 <Text style={styles.dateTime}>{item.signed_up ? "Prihlásený" : "Neprihlásený"}</Text>
                                 <Text style={styles.dateTime}>{item.date} {item.time}</Text>
                                 <TouchableOpacity style={[styles.container_button, styles.cupertinoButtonBlackTextColor2]}
-                                                  onPress={() => {fetch(`http://127.0.0.1:8000/${userToken}/trainings/signup`, {
+                                                  onPress={() => {fetch(`http://192.168.0.101:8000/${userToken}/trainings/signup`, {
                                                           method: 'POST',
                                                           headers: {
                                                               Accept: 'application/json',
